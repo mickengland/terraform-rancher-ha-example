@@ -21,6 +21,17 @@ resource "aws_subnet" "rancher_ha" {
     }
 }
 
+resource "aws_subnet" "rancher_ha_priv" {
+    count                   = "3"
+    vpc_id                  = "${aws_vpc.rancher_ha.id}"
+    cidr_block              = "${element(var.subnet_priv_cidrs, count.index)}"
+    availability_zone       = "${element(var.availability_zones, count.index)}"
+    map_public_ip_on_launch = true
+    tags {
+      Name = "${var.name_prefix}-priv-subnet-${count.index}"
+    }
+}
+
 resource "aws_internet_gateway" "rancher_ha" {
     vpc_id     = "${aws_vpc.rancher_ha.id}"
     depends_on = ["aws_vpc.rancher_ha"]

@@ -11,7 +11,7 @@ resource "aws_elb" "rancher_ha_https" {
         instance_protocol  = "tcp"
         lb_port            = 443
         lb_protocol        = "ssl"
-        ssl_certificate_id = "${aws_iam_server_certificate.rancher_ha.arn}"
+        ssl_certificate_id = "arn:aws:acm:us-east-2:308990673988:certificate/f2ae5ab1-3edc-445b-86aa-c49ec8d7485b"
     }
 
     health_check {
@@ -34,14 +34,6 @@ resource "aws_elb" "rancher_ha_https" {
     tags {
         Name = "${var.name_prefix}-elb-https"
     }
-}
-
-resource "aws_iam_server_certificate" "rancher_ha" {
-    count             = "${var.enable_https}"
-    name              = "${var.name_prefix}-certificate"
-    certificate_body  = "${file("${var.cert_body}")}"
-    private_key       = "${file("${var.cert_private_key}")}"
-    certificate_chain = "${file("${var.cert_chain}")}"
 }
 
 resource "aws_proxy_protocol_policy" "rancher_ha_https_proxy_policy" {

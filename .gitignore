@@ -1,6 +1,6 @@
 *.tfstate
 *.tfstate.backup
-
+*.tfvars
 certs
 *.swp
 *.tar.gz

@@ -2,8 +2,13 @@
 # AWS Environment Variables
 #------------------------------------------#
 variable "region" {
-    default     = "us-east-1"
+    default     = "us-east-2"
     description = "The region of AWS, for AMI lookups"
+}
+
+variable "profile" {
+    default     = "new"
+    description = "The AWS profile to use"
 }
 
 variable "count" {
@@ -17,7 +22,7 @@ variable "name_prefix" {
 }
 
 variable "ami" {
-    default     = "ami-dfdff3c8"
+    default     = "ami-8cbb9fe9"
     description = "Instance AMI ID"
 }
 
@@ -36,17 +41,23 @@ variable "root_volume_size" {
 }
 
 variable "vpc_cidr" {
-    default     = "192.168.199.0/24"
+    default     = "172.16.0.0/16"
     description = "Subnet in CIDR format to assign to VPC"
 }
 
 variable "subnet_cidrs" {
-    default     = ["192.168.199.0/26", "192.168.199.64/26", "192.168.199.128/26"]
+    default     = ["172.16.1.0/24", "172.16.2.0/24", "172.16.3.0/24"]
     description = "Subnet ranges (requires 3 entries)"
 }
 
+variable "subnet_priv_cidrs" {
+    default     = ["172.16.11.0/24", "172.16.12.0/24", "172.16.13.0/24"]
+    description = "Subnet ranges (requires 3 entries)"
+}
+
+
 variable "availability_zones" {
-    default     = ["us-east-1a", "us-east-1b", "us-east-1d"]
+    default     = ["us-east-2a", "us-east-2b", "us-east-2c"]
     description = "Availability zones to place subnets"
 }
 
